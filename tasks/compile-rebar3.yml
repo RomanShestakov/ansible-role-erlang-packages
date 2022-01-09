@@ -22,6 +22,7 @@
 
 - name: REBAR3 | install
   ansible.builtin.copy:
+    remote_src: yes
     src: "{{ rebar3_tmp }}/rebar3"
     dest: "{{ rebar3_install_dir }}/rebar3"
     mode: '0644'
