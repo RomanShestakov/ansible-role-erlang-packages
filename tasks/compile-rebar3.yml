@@ -23,7 +23,7 @@
   become: true
   ansible.builtin.copy:
     src: "{{ rebar3_tmp }}/rebar3"
-    dest: "{{ rebar3_install }}/rebar3"
+    dest: "{{ rebar3_install_dir }}/rebar3"
     mode: '0644'
   when: rebar3_make.changed
   register: rebar3_install
