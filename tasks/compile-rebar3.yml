@@ -14,13 +14,13 @@
   register: rebar3_downloaded
 
 - name: REBAR3 | make
-  become: true
   command: chdir="{{ rebar3_tmp }}" ./bootstrap
+  environment:
+    PATH: "{{ ansible_env.PATH }}:{{ otp_install_dir }}/bin"
   when: rebar3_downloaded.changed
   register: rebar3_make
 
 - name: REBAR3 | install
-  become: true
   ansible.builtin.copy:
     src: "{{ rebar3_tmp }}/rebar3"
     dest: "{{ rebar3_install_dir }}/rebar3"
@@ -29,7 +29,6 @@
   register: rebar3_install
 
 - name: REBAR3 | cleanup tmp
-  become: true
   file:
     path: "{{ rebar3_tmp }}"
     state: absent
