@@ -1,0 +1,10 @@
+---
+# file: defaults/main.yml
+
+rebar3_version: "3.18.0"
+rebar3_url: "https://github.com/erlang/rebar3.git"
+# otp_tmp: "/tmp/otp_src_{{otp_version}}.tar.gz"
+# otp_build: "/tmp/otp_src_{{otp_version}}"
+rebar3_install_dir: "/usr/local/bin"
+
+...

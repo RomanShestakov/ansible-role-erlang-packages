@@ -1,0 +1,38 @@
+---
+# file: ansible-role-erlang-packages/tasks/compile-rebar3.yml
+
+- name: REBAR3 | check if rebar3 is already installed
+  stat:
+    path: "{{ rebar3_install_dir }}/rebar3"
+  register: rebar3_exists
+
+- name: REBAR3 | get from git repository
+  git: repo="{{ rebar3_repo_url }}"
+       dest="{{ rebar3_tmp }}"
+       version="{{ rebar3_version }}"
+  when: not rebar3_exists.stat.exists
+  register: rebar3_downloaded
+
+- name: REBAR3 | make
+  become: true
+  command: chdir="{{ rebar3_tmp }}" ./bootstrap
+  when: rebar3_downloaded.changed
+  register: rebar3_make
+
+- name: REBAR3 | install
+  become: true
+  ansible.builtin.copy:
+    src: "{{ rebar3_tmp }}/rebar3"
+    dest: "{{ rebar3_install }}/rebar3"
+    mode: '0644'
+  when: rebar3_make.changed
+  register: rebar3_install
+
+- name: REBAR3 | cleanup tmp
+  become: true
+  file:
+    path: "{{ rebar3_tmp }}"
+    state: absent
+  when: rebar3_install.changed
+
+...
