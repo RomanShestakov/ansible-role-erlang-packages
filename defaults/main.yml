@@ -8,6 +8,12 @@ rebar3_tmp: "/tmp/rebar3-{{ rebar3_version }}"
 rebar3_install_dir: "/usr/local/bin"
 otp_install_dir: "/usr/local"
 
+# relx
+relx_version: "v4.6.0"
+relx_repo_url: "https://github.com/erlware/relx.git"
+relx_tmp: "/tmp/relx-{{ relx_version }}"
+relx_install_dir: "/usr/local/bin"
+#otp_install_dir: "/usr/local"
 
 # erlang_ls
 erlang_ls_version: "0.21.2"
