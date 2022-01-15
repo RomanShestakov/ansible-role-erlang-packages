@@ -16,7 +16,7 @@
 - name: RELX | make
   command: chdir="{{ relx_tmp }}" rebar3 compile
   environment:
-    PATH: "{{ ansible_env.PATH }}:{{ otp_install_dir }}/bin"
+    PATH: "{{ ansible_env.PATH }}:{{ otp_install_dir }}/bin:/usr/local/bin"
   when: relx_downloaded.changed
   register: relx_make
 
