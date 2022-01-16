@@ -29,6 +29,17 @@
   when: rebar3_make.changed
   register: rebar3_install
 
+- name: REBAR3 | create
+  file:
+    path: {ansible_env.HOME}/.config/rebar3
+    state: directory
+
+- name: REBAR3 | add local rebar3.config
+  become: true
+  action: template src=rebar3.config.j2
+          dest="{ansible_env.HOME}/.config/rebar3/rebar.config"
+          mode=0644
+
 - name: REBAR3 | cleanup tmp
   file:
     path: "{{ rebar3_tmp }}"
