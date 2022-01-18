@@ -33,7 +33,7 @@
 
 - name: REBAR3 | create
   file:
-    path: "{{ansible_env.HOME}}/.config/rebar3"
+    path: "/home/{{ansible_user_id}}/.config/rebar3"
     state: directory
 
 - name: REBAR3 | add local rebar3.config
