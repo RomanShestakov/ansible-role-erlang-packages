@@ -33,12 +33,12 @@
 
 - name: REBAR3 | create
   file:
-    path: "/home/{{ansible_user_id}}/.config/rebar3"
+    path: "{{user_home}}/.config/rebar3"
     state: directory
 
 - name: REBAR3 | add local rebar3.config
   action: template src=rebar3.config.j2
-          dest="/home/{{ansible_user_id}}/.config/rebar3/rebar.config"
+          dest="{{user_home}}/.config/rebar3/rebar.config"
           mode=0644
 
 - name: REBAR3 | cleanup tmp
