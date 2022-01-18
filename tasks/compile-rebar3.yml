@@ -38,7 +38,7 @@
 
 - name: REBAR3 | add local rebar3.config
   action: template src=rebar3.config.j2
-          dest="{{ansible_env.HOME}}/.config/rebar3/rebar.config"
+          dest="/home/{{ansible_user_id}}/.config/rebar3/rebar.config"
           mode=0644
 
 - name: REBAR3 | cleanup tmp
