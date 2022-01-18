@@ -35,7 +35,6 @@
     state: directory
 
 - name: REBAR3 | add local rebar3.config
-  become: true
   action: template src=rebar3.config.j2
           dest="{{ansible_env.HOME}}/.config/rebar3/rebar.config"
           mode=0644
