@@ -22,6 +22,7 @@
 
 - name: REBAR3 | install
   become: yes
+  become_user: root
   ansible.builtin.copy:
     remote_src: yes
     src: "{{ rebar3_tmp }}/rebar3"
