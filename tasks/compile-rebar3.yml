@@ -31,15 +31,18 @@
   when: rebar3_make.changed
   register: rebar3_install
 
-- name: REBAR3 | create
+- name: REBAR3 | create .config
   file:
-    path: "{{user_home}}/.config/rebar3"
+    path: "/home/{{local_user}}/.config/rebar3"
     state: directory
+    owner: "{{local_user}}"
+    group: "{{local_user}}"
+    mode: '0755'
 
 - name: REBAR3 | add local rebar3.config
   action: template src=rebar3.config.j2
-          dest="{{user_home}}/.config/rebar3/rebar.config"
-          mode=0644
+          dest="/home/{{local_user}}/.config/rebar3/rebar.config"
+          mode=0755
 
 - name: REBAR3 | cleanup tmp
   file:

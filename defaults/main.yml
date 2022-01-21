@@ -1,7 +1,7 @@
 ---
 # file: defaults/main.yml
 
-user_home: "/home/vagrant"
+local_user: "vagrant"
 
 # rebar3
 rebar3_version: "3.18.0"
