@@ -14,6 +14,8 @@
   register: erlang_ls_downloaded
 
 - name: ERLANG_LS | make and install
+  become: yes
+  become_user: root
   command: chdir="{{ erlang_ls_tmp }}" make install
   environment:
     PATH: "{{ ansible_env.PATH }}:{{ otp_install_dir }}/bin:{{ rebar3_install_dir }}"
