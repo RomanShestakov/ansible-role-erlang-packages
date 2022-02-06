@@ -1,0 +1,40 @@
+---
+# file: ansible-role-erlang-packages/tasks/compile-mad.yml
+
+- name: MAD | check if mad is already installed
+  stat:
+    path: "{{ mad_install_dir }}/mad"
+  register: mad_exists
+
+- name: MAD | get from git repository
+  git: repo="{{ mad_repo_url }}"
+       dest="{{ mad_tmp }}"
+       version="{{ mad_version }}"
+  when: not mad_exists.stat.exists
+  register: mad_downloaded
+
+- name: MAD | make
+  command: chdir="{{ mad_tmp }}" make
+  environment:
+    PATH: "{{ ansible_env.PATH }}:{{ otp_install_dir }}/bin"
+  when: mad_downloaded.changed
+  register: mad_make
+
+- name: MAD | install
+  become: yes
+  become_user: root
+  ansible.builtin.copy:
+    remote_src: yes
+    src: "{{ mad }}/mad"
+    dest: "{{ mad_install_dir }}/mad"
+    mode: '0655'
+  when: mad_make.changed
+  register: mad_install
+
+- name: MAD | cleanup tmp
+  file:
+    path: "{{ mad_tmp }}"
+    state: absent
+  when: mad_install.changed
+
+...
