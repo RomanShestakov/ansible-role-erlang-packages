@@ -25,7 +25,7 @@
   become_user: root
   ansible.builtin.copy:
     remote_src: yes
-    src: "{{ mad }}/mad"
+    src: "{{ mad_tmp }}/mad"
     dest: "{{ mad_install_dir }}/mad"
     mode: '0655'
   when: mad_make.changed
