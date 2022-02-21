@@ -16,7 +16,7 @@
 - name: MAD | make
   command: chdir="{{ mad_tmp }}" make
   environment:
-    PATH: "{{ ansible_env.PATH }}:{{ otp_install_dir }}/bin"
+    PATH: "{{ ansible_env.PATH }}:{{ otp_install_dir }}/bin:$PATH"
   when: mad_downloaded.changed
   register: mad_make
 
@@ -25,7 +25,7 @@
   become_user: root
   ansible.builtin.copy:
     remote_src: yes
-    src: "{{ mad }}/mad"
+    src: "{{ mad_tmp }}/mad"
     dest: "{{ mad_install_dir }}/mad"
     mode: '0655'
   when: mad_make.changed

@@ -24,7 +24,7 @@ erlang_ls_tmp: "/tmp/erlang_ls-{{ erlang_ls_version }}"
 erlang_ls_install_dir: "/usr/local/bin"
 
 # mad
-mad_version: "7.1"
+mad_version: "master"
 mad_repo_url: "https://github.com/synrc/mad.git"
 mad_tmp: "/tmp/mad-{{ mad_version }}"
 mad_install_dir: "/usr/local/bin"
