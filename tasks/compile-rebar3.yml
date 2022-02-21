@@ -21,8 +21,6 @@
   register: rebar3_make
 
 - name: REBAR3 | install
-  become: yes
-  become_user: root
   ansible.builtin.copy:
     remote_src: yes
     src: "{{ rebar3_tmp }}/rebar3"
@@ -33,16 +31,22 @@
 
 - name: REBAR3 | create .config
   file:
-    path: "/home/{{local_user}}/.config/rebar3"
+    path: "/etc/rebar3/.config/rebar3"
     state: directory
-    owner: "{{local_user}}"
-    group: "{{local_user}}"
     mode: '0755'
+  when: rebar3_make.changed
 
 - name: REBAR3 | add local rebar3.config
   action: template src=rebar3.config.j2
-          dest="/home/{{local_user}}/.config/rebar3/rebar.config"
+          dest="/etc/rebar3/.config/rebar3/rebar.config"
           mode=0755
+  when: rebar3_make.changed
+
+- name: REBAR3 | set REBAR_GLOBAL_CONFIG_DIR env in /etc/profile.d/rebar3.config.path.sh
+  action: template src=rebar3.config.path.sh.j2
+          dest="/etc/profile.d/rebar3_config_path.sh"
+          mode=0644
+  when: rebar3_make.changed
 
 - name: REBAR3 | cleanup tmp
   file:
