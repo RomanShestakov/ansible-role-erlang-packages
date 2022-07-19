@@ -15,8 +15,8 @@
 
 - name: REBAR3 | make
   command: chdir="{{ rebar3_tmp }}" ./bootstrap
-  environment:
-    PATH: "{{ ansible_env.PATH }}:{{ otp_install_dir }}/bin"
+  # environment:
+  #   PATH: "{{ ansible_env.PATH }}:{{ otp_install_dir }}/bin"
   when: rebar3_downloaded.changed
   register: rebar3_make
 

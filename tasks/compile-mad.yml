@@ -15,8 +15,8 @@
 
 - name: MAD | make
   command: chdir="{{ mad_tmp }}" make
-  environment:
-    PATH: "{{ ansible_env.PATH }}:{{ otp_install_dir }}/bin:$PATH"
+  # environment:
+  #   PATH: "{{ ansible_env.PATH }}:{{ otp_install_dir }}/bin:$PATH"
   when: mad_downloaded.changed
   register: mad_make
 
