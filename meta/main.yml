@@ -13,5 +13,5 @@ galaxy_info:
   categories:
   - system
 
-dependencies:
-  - {role: RomanShestakov.ansible-role-otp }
+# dependencies:
+#   - {role: RomanShestakov.ansible-role-otp }
