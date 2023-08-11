@@ -1,0 +1,29 @@
+---
+# file: ansible-role-erlang-packages/tasks/compile-erlang_ls.yml
+
+- name: Elixir_LS | check if already installed
+  stat:
+    path: "{{ elixir_ls_install_dir }}/elixir_ls"
+  register: elixir_ls_exists
+
+- name: Elixir_LS | get from git repository
+  git: repo="{{ elixir_ls_repo_url }}"
+       dest="{{ elixir_ls_tmp }}"
+       version="{{ elixir_ls_version }}"
+  when: not elixir_ls_exists.stat.exists
+  register: elixir_ls_downloaded
+
+- name: Elixir_LS | make and install
+  become: yes
+  become_user: root
+  command: chdir="{{ elixir_ls_tmp }}" mix deps.get;MIX_ENV=prod mix compile;MIX_ENV=prod mix elixir_ls.release -o "{{elixir_ls_install_dir}}"
+  when: elixir_ls_downloaded.changed
+  register: elixir_ls_make
+
+- name: Elixir_LS | cleanup tmp
+  file:
+    path: "{{ elixir_ls_tmp }}"
+    state: absent
+  when: elixir_ls_make.changed
+
+...
