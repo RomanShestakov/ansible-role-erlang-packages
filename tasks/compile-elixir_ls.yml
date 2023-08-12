@@ -13,17 +13,37 @@
   when: not elixir_ls_exists.stat.exists
   register: elixir_ls_downloaded
 
-- name: Elixir_LS | make and install
+- name: Elixir_LS | get deps
   become: yes
   become_user: root
-  command: chdir="{{ elixir_ls_tmp }}" mix deps.get;MIX_ENV=prod mix compile;MIX_ENV=prod mix elixir_ls.release -o "{{elixir_ls_install_dir}}"
+  command:
+    chdir: "{{ elixir_ls_tmp }}"
+    cmd: mix deps.get
   when: elixir_ls_downloaded.changed
-  register: elixir_ls_make
+  register: elixir_ls_get_deps
+
+- name: Elixir_LS | compile deps
+  become: yes
+  become_user: root
+  command:
+    chdir: "{{ elixir_ls_tmp }}"
+    cmd: MIX_ENV=prod mix compile
+  when: elixir_ls_get_deps.changed
+  register: elixir_ls_compile
+
+- name: Elixir_LS | install
+  become: yes
+  become_user: root
+  command:
+    chdir: "{{ elixir_ls_tmp }}"
+    cmd: MIX_ENV=prod mix elixir_ls.release -o "{{elixir_ls_install_dir}}"
+  when: elixir_ls_compile.changed
+  register: elixir_ls_install
 
 - name: Elixir_LS | cleanup tmp
   file:
     path: "{{ elixir_ls_tmp }}"
     state: absent
-  when: elixir_ls_make.changed
+  when: elixir_ls_install.changed
 
 ...
