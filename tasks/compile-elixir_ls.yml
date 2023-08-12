@@ -27,7 +27,8 @@
   become_user: root
   command:
     chdir: "{{ elixir_ls_tmp }}"
-    cmd: MIX_ENV=prod mix compile
+    cmd: mix compile
+  environment: MIX_ENV=prod
   when: elixir_ls_get_deps.changed
   register: elixir_ls_compile
 
@@ -36,7 +37,8 @@
   become_user: root
   command:
     chdir: "{{ elixir_ls_tmp }}"
-    cmd: MIX_ENV=prod mix elixir_ls.release -o "{{elixir_ls_install_dir}}"
+    cmd: mix elixir_ls.release -o "{{elixir_ls_install_dir}}"
+  environment: MIX_ENV=prod
   when: elixir_ls_compile.changed
   register: elixir_ls_install
 
