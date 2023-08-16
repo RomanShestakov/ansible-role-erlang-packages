@@ -3,6 +3,6 @@
 
 - include: 'compile-rebar3.yml'
 - include: 'compile-erlang_ls.yml'
-- include: 'compile-elixir_ls.yml'
-- include: 'compile-mad.yml'
+#- include: 'compile-elixir_ls.yml'
+#- include: 'compile-mad.yml'
 ...
