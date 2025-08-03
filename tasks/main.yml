@@ -1,8 +1,8 @@
 ---
 # tasks/main.yml
 
-- include: 'compile-rebar3.yml'
-- include: 'compile-erlang_ls.yml'
-#- include: 'compile-elixir_ls.yml'
-#- include: 'compile-mad.yml'
+- include_tasks: 'compile-rebar3.yml'
+- include_tasks: 'compile-erlang_ls.yml'
+- include_tasks: 'compile-elixir_ls.yml'
+#- include_tasks: 'compile-mad.yml'
 ...
