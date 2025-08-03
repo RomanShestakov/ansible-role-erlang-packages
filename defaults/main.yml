@@ -24,7 +24,7 @@ erlang_ls_tmp: "/tmp/erlang_ls-{{ erlang_ls_version }}"
 erlang_ls_install_dir: "/usr/local/bin"
 
 # elixir_ls
-elixir_ls_version: "master"
+elixir_ls_version: "v0.24.1"
 elixir_ls_repo_url: "https://github.com/elixir-lsp/elixir-ls.git"
 elixir_ls_tmp: "/tmp/elixir_ls-{{ elixir_ls_version }}"
 elixir_ls_install_dir: "/usr/local/elixir_ls"
